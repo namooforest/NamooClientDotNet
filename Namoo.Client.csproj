@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EF443A22-BB2B-467E-8F51-F1F69C3F7F78}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Namoo.Client</RootNamespace>
+    <AssemblyName>Namoo.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <RestorePackagesPath>./packages</RestorePackagesPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.Desktop.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v21.1.Core, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.1\Components\Bin\Framework\DevExpress.Utils.v21.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 21.1\Components\Bin\Framework\DevExpress.XtraEditors.v21.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v21.1, Version=21.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NaClientConfig.cs" />
+    <Compile Include="NaClientManager.cs" />
+    <Compile Include="NaClientManagerWinForm.cs" />
+    <Compile Include="NaClientManagerXtraForm.cs" />
+    <Compile Include="NaClientUtils.cs" />
+    <Compile Include="Forms\Frame\ControlPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frame\ControlPanel.Designer.cs">
+      <DependentUpon>ControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Frame\SqlManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Frame\SqlManager.Designer.cs">
+      <DependentUpon>SqlManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\INaBaseForm.cs" />
+    <Compile Include="Forms\NaBaseFormHelper.cs" />
+    <Compile Include="Forms\NaBaseWinForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NaBaseWinForm.Designer.cs">
+      <DependentUpon>NaBaseWinForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NaBaseXtraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\SqlEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\SqlEditorView.Designer.cs">
+      <DependentUpon>SqlEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Popup\SqlResultView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\SqlResultView.Designer.cs">
+      <DependentUpon>SqlResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DbConnector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\DbConnector.Designer.cs">
+      <DependentUpon>DbConnector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\ConnectionManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\ConnectionManager.Designer.cs">
+      <DependentUpon>ConnectionManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Config\LogManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Config\LogManager.Designer.cs">
+      <DependentUpon>LogManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Popup\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Popup\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Table\TableCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Table\TableCreate.Designer.cs">
+      <DependentUpon>TableCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Config\ConnectionManager.resx">
+      <DependentUpon>ConnectionManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Config\LogManager.resx">
+      <DependentUpon>LogManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frame\ControlPanel.resx">
+      <DependentUpon>ControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Frame\SqlManager.resx">
+      <DependentUpon>SqlManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Popup\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Popup\SqlEditorView.resx">
+      <DependentUpon>SqlEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Popup\SqlResultView.resx">
+      <DependentUpon>SqlResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Table\TableCreate.resx">
+      <DependentUpon>TableCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Namoo.Controls.DevExp\Namoo.Controls.DevExp.csproj">
+      <Project>{70a1d94e-9afe-4a00-a241-184695856f2a}</Project>
+      <Name>Namoo.Controls.DevExp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Namoo.Controls\Namoo.Controls.csproj">
+      <Project>{ad90633a-613e-434c-b45a-46091f2c0e2d}</Project>
+      <Name>Namoo.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Namoo.Database\Namoo.Database.csproj">
+      <Project>{359a5247-fb19-4939-bd43-30c395a19513}</Project>
+      <Name>Namoo.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Namoo.Frame\Namoo.Frame.csproj">
+      <Project>{442739a0-8bac-43d2-b5d6-22c7a1600209}</Project>
+      <Name>Namoo.Frame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Namoo.Worker\Namoo.Worker.csproj">
+      <Project>{304C859B-8514-487E-810F-B34565E72AE2}</Project>
+      <Name>Namoo.Worker</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\110912-font-awesome\add-square-button.png" />
+    <Content Include="Resources\110912-font-awesome\adjust-contrast.png" />
+    <Content Include="Resources\110912-font-awesome\align-justify.png" />
+    <Content Include="Resources\110912-font-awesome\align-to-left.png" />
+    <Content Include="Resources\110912-font-awesome\align-to-right.png" />
+    <Content Include="Resources\110912-font-awesome\ambulance.png" />
+    <Content Include="Resources\110912-font-awesome\anchor-shape.png" />
+    <Content Include="Resources\110912-font-awesome\android-character-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\angle-arrow-down.png" />
+    <Content Include="Resources\110912-font-awesome\angle-arrow-pointing-to-right.png" />
+    <Content Include="Resources\110912-font-awesome\angle-pointing-to-left.png" />
+    <Content Include="Resources\110912-font-awesome\apple-logo.png" />
+    <Content Include="Resources\110912-font-awesome\archive-black-box.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-angle-pointing-down.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-down-on-black-circular-background.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-pointing-down.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-pointing-right-in-a-circle.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-pointing-to-left.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-pointing-to-right.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-up-on-a-black-circle-background.png" />
+    <Content Include="Resources\110912-font-awesome\arrow-up.png" />
+    <Content Include="Resources\110912-font-awesome\arrowhead-pointing-to-the-right.png" />
+    <Content Include="Resources\110912-font-awesome\arrowhead-pointing-up-inside-a-square-box-outline.png" />
+    <Content Include="Resources\110912-font-awesome\arrowheads-pointing-to-the-left.png" />
+    <Content Include="Resources\110912-font-awesome\asterisk.png" />
+    <Content Include="Resources\110912-font-awesome\ban-circle-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\bar-graph-on-a-rectangle.png" />
+    <Content Include="Resources\110912-font-awesome\barcode.png" />
+    <Content Include="Resources\110912-font-awesome\beaker.png" />
+    <Content Include="Resources\110912-font-awesome\beer-jar-black-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\bell-musical-tool.png" />
+    <Content Include="Resources\110912-font-awesome\bitbucket-logotype-camera-lens-in-perspective.png" />
+    <Content Include="Resources\110912-font-awesome\bitbucket-sign.png" />
+    <Content Include="Resources\110912-font-awesome\bitcoin-logo.png" />
+    <Content Include="Resources\110912-font-awesome\blank-file.png" />
+    <Content Include="Resources\110912-font-awesome\bold-text-option.png" />
+    <Content Include="Resources\110912-font-awesome\book.png" />
+    <Content Include="Resources\110912-font-awesome\bookmark-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\bookmark-white.png" />
+    <Content Include="Resources\110912-font-awesome\branch-with-leaves-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\briefcase.png" />
+    <Content Include="Resources\110912-font-awesome\bug.png" />
+    <Content Include="Resources\110912-font-awesome\building-front.png" />
+    <Content Include="Resources\110912-font-awesome\bull-horn-announcer.png" />
+    <Content Include="Resources\110912-font-awesome\bullseye.png" />
+    <Content Include="Resources\110912-font-awesome\calendar-page-empty.png" />
+    <Content Include="Resources\110912-font-awesome\calendar-with-spring-binder-and-date-blocks.png" />
+    <Content Include="Resources\110912-font-awesome\camera-retro.png" />
+    <Content Include="Resources\110912-font-awesome\caret-arrow-up.png" />
+    <Content Include="Resources\110912-font-awesome\caret-down.png" />
+    <Content Include="Resources\110912-font-awesome\center-text-alignment.png" />
+    <Content Include="Resources\110912-font-awesome\certificate-shape.png" />
+    <Content Include="Resources\110912-font-awesome\check-box-empty.png" />
+    <Content Include="Resources\110912-font-awesome\check-mark.png" />
+    <Content Include="Resources\110912-font-awesome\check-sign-in-a-rounded-black-square.png" />
+    <Content Include="Resources\110912-font-awesome\check.png" />
+    <Content Include="Resources\110912-font-awesome\checked-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\checkered-raised-flag.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-arrow-down.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-arrow-up.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-pointing-to-the-left.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-sign-down.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-sign-left.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-sign-to-right.png" />
+    <Content Include="Resources\110912-font-awesome\chevron-up.png" />
+    <Content Include="Resources\110912-font-awesome\circle-shape-outline.png" />
+    <Content Include="Resources\110912-font-awesome\circle-with-an-arrow-pointing-to-left.png" />
+    <Content Include="Resources\110912-font-awesome\circular-shape-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\cloud-storage-download.png" />
+    <Content Include="Resources\110912-font-awesome\cloud-storage-uploading-option.png" />
+    <Content Include="Resources\110912-font-awesome\cocktail-glass.png" />
+    <Content Include="Resources\110912-font-awesome\code-fork-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\code.png" />
+    <Content Include="Resources\110912-font-awesome\coffee-cup-on-a-plate-black-silhouettes.png" />
+    <Content Include="Resources\110912-font-awesome\cog-wheel-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\collapse-window-option.png" />
+    <Content Include="Resources\110912-font-awesome\comment-black-oval-bubble-shape.png" />
+    <Content Include="Resources\110912-font-awesome\comment-white-oval-bubble.png" />
+    <Content Include="Resources\110912-font-awesome\comments.png" />
+    <Content Include="Resources\110912-font-awesome\compass-circular-variant.png" />
+    <Content Include="Resources\110912-font-awesome\computer-tablet.png" />
+    <Content Include="Resources\110912-font-awesome\copy-document.png" />
+    <Content Include="Resources\110912-font-awesome\correct-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\couple-of-arrows-changing-places.png" />
+    <Content Include="Resources\110912-font-awesome\credit-card.png" />
+    <Content Include="Resources\110912-font-awesome\crop-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\cross-mark-on-a-black-circle-background.png" />
+    <Content Include="Resources\110912-font-awesome\css-3-logo.png" />
+    <Content Include="Resources\110912-font-awesome\cursor.png" />
+    <Content Include="Resources\110912-font-awesome\cut.png" />
+    <Content Include="Resources\110912-font-awesome\dashboard.png" />
+    <Content Include="Resources\110912-font-awesome\delivery-truck-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\desktop-monitor.png" />
+    <Content Include="Resources\110912-font-awesome\dollar-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\dot-and-circle.png" />
+    <Content Include="Resources\110912-font-awesome\double-angle-pointing-to-right.png" />
+    <Content Include="Resources\110912-font-awesome\double-left-chevron.png" />
+    <Content Include="Resources\110912-font-awesome\double-sided-eraser.png" />
+    <Content Include="Resources\110912-font-awesome\double-strikethrough-option.png" />
+    <Content Include="Resources\110912-font-awesome\down-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\download-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\download-to-storage-drive.png" />
+    <Content Include="Resources\110912-font-awesome\dribbble-logo.png" />
+    <Content Include="Resources\110912-font-awesome\dropbox-logo.png" />
+    <Content Include="Resources\110912-font-awesome\earth-globe.png" />
+    <Content Include="Resources\110912-font-awesome\edit-interface-sign.png" />
+    <Content Include="Resources\110912-font-awesome\eject-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\envelope-of-white-paper.png" />
+    <Content Include="Resources\110912-font-awesome\envelope.png" />
+    <Content Include="Resources\110912-font-awesome\euro-currency-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\exchange-arrows.png" />
+    <Content Include="Resources\110912-font-awesome\exclamation-sign.png" />
+    <Content Include="Resources\110912-font-awesome\exclamation.png" />
+    <Content Include="Resources\110912-font-awesome\external-link-square-with-an-arrow-in-right-diagonal.png" />
+    <Content Include="Resources\110912-font-awesome\external-link-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\eye-open.png" />
+    <Content Include="Resources\110912-font-awesome\eye-with-a-diagonal-line-interface-symbol-for-invisibility.png" />
+    <Content Include="Resources\110912-font-awesome\facebook-logo-1.png" />
+    <Content Include="Resources\110912-font-awesome\facebook-logo.png" />
+    <Content Include="Resources\110912-font-awesome\facetime-button.png" />
+    <Content Include="Resources\110912-font-awesome\fast-forward-arrows.png" />
+    <Content Include="Resources\110912-font-awesome\female-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\fighter-jet-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\file.png" />
+    <Content Include="Resources\110912-font-awesome\film-strip-with-two-photograms.png" />
+    <Content Include="Resources\110912-font-awesome\filter-tool-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\finger-of-a-hand-pointing-to-right-direction.png" />
+    <Content Include="Resources\110912-font-awesome\fire-extinguisher.png" />
+    <Content Include="Resources\110912-font-awesome\fire-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\flag-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\flickr-website-logo-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\fluffy-cloud-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\folder-closed-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\folder-white-shape.png" />
+    <Content Include="Resources\110912-font-awesome\font-selection-editor.png" />
+    <Content Include="Resources\110912-font-awesome\font-symbol-of-letter-a.png" />
+    <Content Include="Resources\110912-font-awesome\fork-and-knife-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\forward-button.png" />
+    <Content Include="Resources\110912-font-awesome\four-black-squares.png" />
+    <Content Include="Resources\110912-font-awesome\foursquare-button.png" />
+    <Content Include="Resources\110912-font-awesome\frown.png" />
+    <Content Include="Resources\110912-font-awesome\fullscreen-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\gamepad-console.png" />
+    <Content Include="Resources\110912-font-awesome\gift-box.png" />
+    <Content Include="Resources\110912-font-awesome\github-character.png" />
+    <Content Include="Resources\110912-font-awesome\github-logo.png" />
+    <Content Include="Resources\110912-font-awesome\github-sign.png" />
+    <Content Include="Resources\110912-font-awesome\gittip-website-logo.png" />
+    <Content Include="Resources\110912-font-awesome\google-plus-symbol-1.png" />
+    <Content Include="Resources\110912-font-awesome\google-plus-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\great-britain-pound.png" />
+    <Content Include="Resources\110912-font-awesome\group-profile-users.png" />
+    <Content Include="Resources\110912-font-awesome\half-star-shape.png" />
+    <Content Include="Resources\110912-font-awesome\hand-finger-pointing-down.png" />
+    <Content Include="Resources\110912-font-awesome\hand-pointing-to-left-direction.png" />
+    <Content Include="Resources\110912-font-awesome\hand-pointing-upward.png" />
+    <Content Include="Resources\110912-font-awesome\hard-drive.png" />
+    <Content Include="Resources\110912-font-awesome\heart-shape-outline.png" />
+    <Content Include="Resources\110912-font-awesome\heart-shape-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\home.png" />
+    <Content Include="Resources\110912-font-awesome\horizontal-resize-option.png" />
+    <Content Include="Resources\110912-font-awesome\hostpital-building.png" />
+    <Content Include="Resources\110912-font-awesome\hotel-letter-h-sign-inside-a-black-rounded-square.png" />
+    <Content Include="Resources\110912-font-awesome\html-5-logo.png" />
+    <Content Include="Resources\110912-font-awesome\inbox.png" />
+    <Content Include="Resources\110912-font-awesome\increase-size-option.png" />
+    <Content Include="Resources\110912-font-awesome\indent-right.png" />
+    <Content Include="Resources\110912-font-awesome\information-button.png" />
+    <Content Include="Resources\110912-font-awesome\information-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\instagram-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\italicize-text.png" />
+    <Content Include="Resources\110912-font-awesome\keyboard.png" />
+    <Content Include="Resources\110912-font-awesome\left-arrow-1.png" />
+    <Content Include="Resources\110912-font-awesome\left-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\left-indentation-option.png" />
+    <Content Include="Resources\110912-font-awesome\legal-hammer.png" />
+    <Content Include="Resources\110912-font-awesome\lemon.png" />
+    <Content Include="Resources\110912-font-awesome\leter-a-inside-a-black-circle.png" />
+    <Content Include="Resources\110912-font-awesome\letter-p-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\level-up.png" />
+    <Content Include="Resources\110912-font-awesome\light-bulb.png" />
+    <Content Include="Resources\110912-font-awesome\lightning-bolt-shadow.png" />
+    <Content Include="Resources\110912-font-awesome\link-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\linkedin-letters.png" />
+    <Content Include="Resources\110912-font-awesome\linkedin-sign.png" />
+    <Content Include="Resources\110912-font-awesome\linux-logo.png" />
+    <Content Include="Resources\110912-font-awesome\list-on-window.png" />
+    <Content Include="Resources\110912-font-awesome\list-with-dots.png" />
+    <Content Include="Resources\110912-font-awesome\list.png" />
+    <Content Include="Resources\110912-font-awesome\listing-option.png" />
+    <Content Include="Resources\110912-font-awesome\long-arrow-pointing-to-left.png" />
+    <Content Include="Resources\110912-font-awesome\long-arrow-pointing-to-the-right.png" />
+    <Content Include="Resources\110912-font-awesome\long-arrow-pointing-up.png" />
+    <Content Include="Resources\110912-font-awesome\magic-wand.png" />
+    <Content Include="Resources\110912-font-awesome\magnifying-glass.png" />
+    <Content Include="Resources\110912-font-awesome\man.png" />
+    <Content Include="Resources\110912-font-awesome\map-marker.png" />
+    <Content Include="Resources\110912-font-awesome\maxcdn-website-logo.png" />
+    <Content Include="Resources\110912-font-awesome\medical-kit.png" />
+    <Content Include="Resources\110912-font-awesome\meh-face-emoticon.png" />
+    <Content Include="Resources\110912-font-awesome\microphone-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\microphone-off.png" />
+    <Content Include="Resources\110912-font-awesome\minus-button.png" />
+    <Content Include="Resources\110912-font-awesome\minus-sign-inside-a-black-circle.png" />
+    <Content Include="Resources\110912-font-awesome\minus-sign-inside-a-black-rounded-square-shape.png" />
+    <Content Include="Resources\110912-font-awesome\minus-sign-on-a-square-outline.png" />
+    <Content Include="Resources\110912-font-awesome\minus-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\mobile-phone.png" />
+    <Content Include="Resources\110912-font-awesome\moon-phase-outline.png" />
+    <Content Include="Resources\110912-font-awesome\move-option.png" />
+    <Content Include="Resources\110912-font-awesome\music-headphones.png" />
+    <Content Include="Resources\110912-font-awesome\music-note-black-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\musical-bell-outline.png" />
+    <Content Include="Resources\110912-font-awesome\nine-black-tiles.png" />
+    <Content Include="Resources\110912-font-awesome\numbered-list.png" />
+    <Content Include="Resources\110912-font-awesome\open-folder-outline.png" />
+    <Content Include="Resources\110912-font-awesome\open-folder.png" />
+    <Content Include="Resources\110912-font-awesome\open-laptop-computer.png" />
+    <Content Include="Resources\110912-font-awesome\open-padlock-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\open-wrench-tool-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\padlock-unlock.png" />
+    <Content Include="Resources\110912-font-awesome\padlock.png" />
+    <Content Include="Resources\110912-font-awesome\paper-bill.png" />
+    <Content Include="Resources\110912-font-awesome\paper-clip-outline.png" />
+    <Content Include="Resources\110912-font-awesome\paper-push-pin.png" />
+    <Content Include="Resources\110912-font-awesome\paste-from-clipboard.png" />
+    <Content Include="Resources\110912-font-awesome\pause-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\pencil.png" />
+    <Content Include="Resources\110912-font-awesome\photo-camera.png" />
+    <Content Include="Resources\110912-font-awesome\picture.png" />
+    <Content Include="Resources\110912-font-awesome\pinterest-logo.png" />
+    <Content Include="Resources\110912-font-awesome\pinterest-sign.png" />
+    <Content Include="Resources\110912-font-awesome\plane.png" />
+    <Content Include="Resources\110912-font-awesome\plant-leaf-with-white-details.png" />
+    <Content Include="Resources\110912-font-awesome\play-button.png" />
+    <Content Include="Resources\110912-font-awesome\play-circle.png" />
+    <Content Include="Resources\110912-font-awesome\play-sign.png" />
+    <Content Include="Resources\110912-font-awesome\play-video-button.png" />
+    <Content Include="Resources\110912-font-awesome\plus-black-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\plus-sign-in-a-black-circle.png" />
+    <Content Include="Resources\110912-font-awesome\plus-symbol-in-a-rounded-black-square.png" />
+    <Content Include="Resources\110912-font-awesome\power-button-off.png" />
+    <Content Include="Resources\110912-font-awesome\printing-tool.png" />
+    <Content Include="Resources\110912-font-awesome\puzzle-piece-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\qr-code.png" />
+    <Content Include="Resources\110912-font-awesome\question-mark-on-a-circular-black-background.png" />
+    <Content Include="Resources\110912-font-awesome\question-sign.png" />
+    <Content Include="Resources\110912-font-awesome\quote-left.png" />
+    <Content Include="Resources\110912-font-awesome\reduced-volume.png" />
+    <Content Include="Resources\110912-font-awesome\refresh-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\refresh-page-option.png" />
+    <Content Include="Resources\110912-font-awesome\remove-button.png" />
+    <Content Include="Resources\110912-font-awesome\remove-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\renren-social-network-of-china-logotype.png" />
+    <Content Include="Resources\110912-font-awesome\reorder-option.png" />
+    <Content Include="Resources\110912-font-awesome\reply-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\reply.png" />
+    <Content Include="Resources\110912-font-awesome\resize-option.png" />
+    <Content Include="Resources\110912-font-awesome\retweet-arrows-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\rewind-button.png" />
+    <Content Include="Resources\110912-font-awesome\right-arrow-in-a-circle.png" />
+    <Content Include="Resources\110912-font-awesome\right-chevron.png" />
+    <Content Include="Resources\110912-font-awesome\right-quotation-mark.png" />
+    <Content Include="Resources\110912-font-awesome\road-perspective.png" />
+    <Content Include="Resources\110912-font-awesome\rounded-black-square-shape.png" />
+    <Content Include="Resources\110912-font-awesome\rss-feed-button.png" />
+    <Content Include="Resources\110912-font-awesome\rss-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\rupee-indian.png" />
+    <Content Include="Resources\110912-font-awesome\save-file-option.png" />
+    <Content Include="Resources\110912-font-awesome\screenshot.png" />
+    <Content Include="Resources\110912-font-awesome\settings.png" />
+    <Content Include="Resources\110912-font-awesome\share-option.png" />
+    <Content Include="Resources\110912-font-awesome\share-post-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\share-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\shield.png" />
+    <Content Include="Resources\110912-font-awesome\shopping-cart-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\sign-in.png" />
+    <Content Include="Resources\110912-font-awesome\sign-out-option.png" />
+    <Content Include="Resources\110912-font-awesome\signal-bars.png" />
+    <Content Include="Resources\110912-font-awesome\sitemap.png" />
+    <Content Include="Resources\110912-font-awesome\skype-logo.png" />
+    <Content Include="Resources\110912-font-awesome\small-rocket-ship-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\smile.png" />
+    <Content Include="Resources\110912-font-awesome\sort-arrows-couple-pointing-up-and-down.png" />
+    <Content Include="Resources\110912-font-awesome\sort-by-alphabet.png" />
+    <Content Include="Resources\110912-font-awesome\sort-by-attributes-interface-button-option.png" />
+    <Content Include="Resources\110912-font-awesome\sort-by-attributes.png" />
+    <Content Include="Resources\110912-font-awesome\sort-by-numeric-order.png" />
+    <Content Include="Resources\110912-font-awesome\sort-by-order.png" />
+    <Content Include="Resources\110912-font-awesome\sort-down.png" />
+    <Content Include="Resources\110912-font-awesome\sort-reverse-alphabetical-order.png" />
+    <Content Include="Resources\110912-font-awesome\sort-up.png" />
+    <Content Include="Resources\110912-font-awesome\speech-bubbles-comment-option.png" />
+    <Content Include="Resources\110912-font-awesome\spinner-of-dots.png" />
+    <Content Include="Resources\110912-font-awesome\square-shape-shadow.png" />
+    <Content Include="Resources\110912-font-awesome\stack-exchange-logo.png" />
+    <Content Include="Resources\110912-font-awesome\stack-exchange-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\star-1.png" />
+    <Content Include="Resources\110912-font-awesome\star-half-empty.png" />
+    <Content Include="Resources\110912-font-awesome\star.png" />
+    <Content Include="Resources\110912-font-awesome\step-backward.png" />
+    <Content Include="Resources\110912-font-awesome\step-forward.png" />
+    <Content Include="Resources\110912-font-awesome\stethoscope.png" />
+    <Content Include="Resources\110912-font-awesome\strikethrough.png" />
+    <Content Include="Resources\110912-font-awesome\suitcase-with-white-details.png" />
+    <Content Include="Resources\110912-font-awesome\sun.png" />
+    <Content Include="Resources\110912-font-awesome\superscript-text-formatting.png" />
+    <Content Include="Resources\110912-font-awesome\table-grid.png" />
+    <Content Include="Resources\110912-font-awesome\tag-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\tags.png" />
+    <Content Include="Resources\110912-font-awesome\tasks-list.png" />
+    <Content Include="Resources\110912-font-awesome\telephone-handle-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\telephone-symbol-button.png" />
+    <Content Include="Resources\110912-font-awesome\terminal.png" />
+    <Content Include="Resources\110912-font-awesome\text-file-1.png" />
+    <Content Include="Resources\110912-font-awesome\text-file.png" />
+    <Content Include="Resources\110912-font-awesome\text-height-adjustment.png" />
+    <Content Include="Resources\110912-font-awesome\text-width.png" />
+    <Content Include="Resources\110912-font-awesome\thin-arrowheads-pointing-down.png" />
+    <Content Include="Resources\110912-font-awesome\three-small-square-shapes.png" />
+    <Content Include="Resources\110912-font-awesome\thumb-down.png" />
+    <Content Include="Resources\110912-font-awesome\thumbs-down-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\thumbs-up-hand-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\thumbs-up.png" />
+    <Content Include="Resources\110912-font-awesome\ticket.png" />
+    <Content Include="Resources\110912-font-awesome\time.png" />
+    <Content Include="Resources\110912-font-awesome\tint-drop.png" />
+    <Content Include="Resources\110912-font-awesome\trash.png" />
+    <Content Include="Resources\110912-font-awesome\trello-website-logo.png" />
+    <Content Include="Resources\110912-font-awesome\trophy.png" />
+    <Content Include="Resources\110912-font-awesome\tumblr-logo-1.png" />
+    <Content Include="Resources\110912-font-awesome\tumblr-logo.png" />
+    <Content Include="Resources\110912-font-awesome\turkish-lire-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\twitter-black-shape.png" />
+    <Content Include="Resources\110912-font-awesome\twitter-sign.png" />
+    <Content Include="Resources\110912-font-awesome\two-columns-layout.png" />
+    <Content Include="Resources\110912-font-awesome\u-shaped-thick-magnet.png" />
+    <Content Include="Resources\110912-font-awesome\umbrella-black-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\underline-text-option.png" />
+    <Content Include="Resources\110912-font-awesome\undo-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\unlink-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\up-arrow.png" />
+    <Content Include="Resources\110912-font-awesome\up-chevron-button.png" />
+    <Content Include="Resources\110912-font-awesome\upload-button.png" />
+    <Content Include="Resources\110912-font-awesome\upload.png" />
+    <Content Include="Resources\110912-font-awesome\user-md-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\user-shape.png" />
+    <Content Include="Resources\110912-font-awesome\vertical-ellipsis.png" />
+    <Content Include="Resources\110912-font-awesome\vertical-resizing-option.png" />
+    <Content Include="Resources\110912-font-awesome\video-play-square-button.png" />
+    <Content Include="Resources\110912-font-awesome\vimeo-square-logo.png" />
+    <Content Include="Resources\110912-font-awesome\vintage-key-outline.png" />
+    <Content Include="Resources\110912-font-awesome\vk-social-network-logo.png" />
+    <Content Include="Resources\110912-font-awesome\volume-off.png" />
+    <Content Include="Resources\110912-font-awesome\volume-up-interface-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\warning-sign-on-a-triangular-background.png" />
+    <Content Include="Resources\110912-font-awesome\weibo-website-logo.png" />
+    <Content Include="Resources\110912-font-awesome\wheelchair.png" />
+    <Content Include="Resources\110912-font-awesome\white-flag-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\windows-logo-silhouette.png" />
+    <Content Include="Resources\110912-font-awesome\x2-symbol-of-a-letter-and-a-number-subscript.png" />
+    <Content Include="Resources\110912-font-awesome\xing-logo.png" />
+    <Content Include="Resources\110912-font-awesome\xing-logotype.png" />
+    <Content Include="Resources\110912-font-awesome\yen-symbol.png" />
+    <Content Include="Resources\110912-font-awesome\youtube-logo-1.png" />
+    <Content Include="Resources\110912-font-awesome\youtube-logo-2.png" />
+    <Content Include="Resources\110912-font-awesome\youtube-logo.png" />
+    <Content Include="Resources\110912-font-awesome\zoom-in.png" />
+    <Content Include="Resources\110912-font-awesome\zoom-out.png" />
+    <Content Include="Resources\magnifying-glass.ico" />
+    <Content Include="Resources\row_add.png" />
+    <Content Include="Resources\row_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\110912-font-awesome\license\license.pdf" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
