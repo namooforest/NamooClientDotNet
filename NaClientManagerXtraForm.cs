@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraBars;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTab;
 using DevExpress.XtraTab.ViewInfo;
@@ -110,7 +110,7 @@ namespace Namoo.Client
         {
             Control ctlMain = Application.OpenForms[NaClientManager.MainFormName];
 
-            List<Control> ctrls = NaFunctions.GetControlsByName(ctlMain, NaClientManager.MainTabName, false);
+            List<Control> ctrls = NaClientUtils.GetControlsByName(ctlMain, NaClientManager.MainTabName, false);
             if (ctrls == null)
             {
                 return null;
@@ -212,7 +212,7 @@ namespace Namoo.Client
             if (page != null)
             {
                 // 1. 페이지 내의 모든 Form 찾아서 닫기
-                IEnumerable<Form> forms = NaFunctions.GetControlsByType<Form>(page, true);
+                IEnumerable<Form> forms = NaClientUtils.GetControlsByType<Form>(page, true);
                 if (forms != null)
                 {
                     foreach (Form f in forms)

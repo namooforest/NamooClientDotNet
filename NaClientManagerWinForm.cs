@@ -1,4 +1,4 @@
-﻿using Namoo.Frame;
+using Namoo.Frame;
 using Namoo.Frame.NaExceptions;
 using System;
 using System.Collections.Generic;
@@ -140,7 +140,7 @@ namespace Namoo.Client
 
         private TabControl GetMainTab()
         {
-            List<Control> ctrls = NaFunctions.GetControlsByName(_parentControl, "MainTab", false);
+            List<Control> ctrls = NaClientUtils.GetControlsByName(_parentControl, "MainTab", false);
             if (ctrls == null)
             {
                 return null;
@@ -218,7 +218,7 @@ namespace Namoo.Client
             TabPage currentPage = GetMainTab().SelectedTab;
             if (item.Name.Equals("CloseTab"))
             {
-                IEnumerable<Form> list = NaFunctions.GetControlsByType<Form>(currentPage, true);
+                IEnumerable<Form> list = NaClientUtils.GetControlsByType<Form>(currentPage, true);
                 foreach (Form f in list)
                     f.Close();
 
@@ -230,7 +230,7 @@ namespace Namoo.Client
             {
                 foreach (TabPage page in GetMainTab().TabPages)
                 {
-                    IEnumerable<Form> list = NaFunctions.GetControlsByType<Form>(page, true);
+                    IEnumerable<Form> list = NaClientUtils.GetControlsByType<Form>(page, true);
                     foreach (Form f in list)
                         f.Close();
 
@@ -245,7 +245,7 @@ namespace Namoo.Client
                 {
                     if (page.Name != currentPage.Name)
                     {
-                        IEnumerable<Form> list = NaFunctions.GetControlsByType<Form>(page, true);
+                        IEnumerable<Form> list = NaClientUtils.GetControlsByType<Form>(page, true);
                         foreach (Form f in list)
                             f.Close();
 
