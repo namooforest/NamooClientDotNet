@@ -202,6 +202,7 @@ namespace Namoo.Client.Forms.Config
             DBTypes types = (DBTypes)Enum.Parse(typeof(DBTypes), sSelect);
             switch (types)
             {
+                case DBTypes.PostgreSQL:
                 case DBTypes.MySql8x:
                 case DBTypes.MariaDB:
                     pnlIP.Visible = true;
@@ -319,16 +320,10 @@ namespace Namoo.Client.Forms.Config
 
             switch (dbType)
             {
+                case DBTypes.PostgreSQL:
                 case DBTypes.MySql8x:
-                    cfg.DbType = DBTypes.MySql8x;
-                    cfg.Ip = sIp;
-                    cfg.Port = sPort;
-                    cfg.Database = sDatabase;
-                    cfg.Id = sId;
-                    cfg.Password = sPassword;
-                    break;
                 case DBTypes.MariaDB:
-                    cfg.DbType = DBTypes.MariaDB;
+                    cfg.DbType = dbType;
                     cfg.Ip = sIp;
                     cfg.Port = sPort;
                     cfg.Database = sDatabase;
