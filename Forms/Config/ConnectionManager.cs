@@ -122,7 +122,7 @@ namespace Namoo.Client.Forms.Config
                 Dictionary<string, object> dicData = new Dictionary<string, object>();
                 dicData.Add("CONN_NAME", sName);
 
-                NaWorkerReq spec = new NaWorkerReq("Namoo.ConnectionManager.DeleteConnector", dicData);
+                NaWorkerReq spec = new NaWorkerReq("Namoo.DeleteConnector", dicData);
                 NaWorkerRes ret = CallWorker(spec);
 
                 if (ret.IsSuccess == false)
@@ -151,7 +151,7 @@ namespace Namoo.Client.Forms.Config
             Dictionary<string, object> dicParam = new Dictionary<string, object>();
             dicParam.Add("CONNECTION_INFO", cfg);
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.Common.ConnectionTest", dicParam);
+            NaWorkerReq req = new NaWorkerReq("Namoo.ConnectionTest", dicParam);
             NaBaseFormHelper helper = new NaBaseFormHelper();
             NaWorkerRes res = helper.CallWorker(req);
             if (res.IsSuccess)
@@ -172,7 +172,7 @@ namespace Namoo.Client.Forms.Config
                 dicData.Add("DATA", data);
                 dicData.Add("IS_DEFAULT", chkDefault.Checked ? "Y" : "N");
 
-                NaWorkerReq spec = new NaWorkerReq("Namoo.ConnectionManager.SaveConnector", dicData);
+                NaWorkerReq spec = new NaWorkerReq("Namoo.SaveConnector", dicData);
                 NaWorkerRes ret = CallWorker(spec);
 
                 if (ret.IsSuccess == false)
@@ -435,7 +435,7 @@ namespace Namoo.Client.Forms.Config
         private void SelectData(string sDBName)
         {
             _sDefaultConnectorName = null;
-            NaWorkerReq spec = new NaWorkerReq("Namoo.ConnectionManager.SelectConnectorList");
+            NaWorkerReq spec = new NaWorkerReq("Namoo.SelectConnectorList");
             NaWorkerRes ret = CallWorker(spec);
             if (ret.IsSuccess == false)
                 return;

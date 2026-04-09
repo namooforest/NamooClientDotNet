@@ -20,7 +20,7 @@ namespace Namoo.Client
             UserId = NaFrameConfig.UserId;
             // 서버에서 클라이언트 설정 정보 가져오기
             NaBaseFormHelper helper = new NaBaseFormHelper();
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.GetClientConfig");
+            NaWorkerReq req = new NaWorkerReq("Namoo.GetClientConfig");
             NaWorkerRes res = helper.CallWorker(req);
             if (res.IsSuccess == false)
                 throw new NaException(res.Message, res.Exception);

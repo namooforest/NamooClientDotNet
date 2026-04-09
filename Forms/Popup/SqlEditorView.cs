@@ -189,7 +189,7 @@ namespace Namoo.Client.Forms.Popup
             string sMappedSql = null;
             if (sSqlType == "SELECT")
             {
-                NaWorkerReq req = new NaWorkerReq("Namoo.SqlManager.ExecuteSelectSql", dicReqParam);
+                NaWorkerReq req = new NaWorkerReq("Namoo.ExecuteSelectSql", dicReqParam);
                 NaWorkerRes res = CallWorker(req);
                 if (res.IsSuccess == false)
                 {
@@ -324,7 +324,7 @@ namespace Namoo.Client.Forms.Popup
             dicParam.Add("SQL_TYPE", cmbSqlType.GetValue());
             dicParam.Add("QUERY", sQuery);
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.SqlManager.SaveSql", dicParam);
+            NaWorkerReq req = new NaWorkerReq("Namoo.SaveSql", dicParam);
             NaWorkerRes res = CallWorker(req);
             if (res.IsSuccess == false)
             {

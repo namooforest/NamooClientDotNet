@@ -51,7 +51,7 @@ namespace Namoo.Client.Forms.Frame
         {
             gvSqlGroupList.ClearDataTable();
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.SqlManager.SelectSqlGroupList");
+            NaWorkerReq req = new NaWorkerReq("Namoo.SelectSqlGroupList");
             NaWorkerRes res = CallWorker(req);
             if (res.IsSuccess == false)
             {
@@ -79,7 +79,7 @@ namespace Namoo.Client.Forms.Frame
             Dictionary<string, object> dicParam = new Dictionary<string, object>();
             dicParam.Add("SQL_GROUP_ID", sSqlGroupId);
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.SqlManager.SelectSqlList", dicParam);
+            NaWorkerReq req = new NaWorkerReq("Namoo.SelectSqlList", dicParam);
             NaWorkerRes res = CallWorker(req);
             if (res.IsSuccess == false)
             {
@@ -99,7 +99,7 @@ namespace Namoo.Client.Forms.Frame
             dicParam.Add("SQL_GROUP_ID", sSqlGroupId);
             dicParam.Add("SQL_ID", sSqlId);
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.SqlManager.GetSqlData", dicParam);
+            NaWorkerReq req = new NaWorkerReq("Namoo.GetSqlData", dicParam);
             NaWorkerRes res = CallWorker(req);
             if (res.IsSuccess == false)
             {
@@ -115,7 +115,7 @@ namespace Namoo.Client.Forms.Frame
             Dictionary<string, object> dicParam = new Dictionary<string, object>();
             dicParam.Add("SQL_ID_LIST", liSelect.CopyToDataTable());
 
-            NaWorkerReq req = new NaWorkerReq("Namoo.Server.SqlManager.DeleteSqlList", dicParam);
+            NaWorkerReq req = new NaWorkerReq("Namoo.DeleteSqlList", dicParam);
             NaWorkerRes res = CallWorker(req);
 
             if (res.IsSuccess)
