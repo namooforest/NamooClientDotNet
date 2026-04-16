@@ -1,4 +1,5 @@
-﻿using Namoo.Frame;
+﻿using Namoo.Client;
+using Namoo.Frame;
 using Namoo.Frame.DTO.Message;
 using Namoo.Frame.Logger;
 using Namoo.Worker.Message;
@@ -48,54 +49,51 @@ namespace Namoo.Client.Forms.Popup
 
             try
             {
-                using (var client = new HttpClient())
+                AddProgressMessage(_wRequest.WorkerName + " 호출", true);
+                StartTicker();
+
+                // 폴링을 독립적으로 실행
+                pollingTask = PollProgressAsync(_wRequest.Header.TrxId, _pollingCts.Token);
+
+                string sJsonMsg = NaFunctions.ConvertObjectToJsonString(_wRequest);
+                var content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json");
+
+                // Request 로그 기록
+                NaLogger.Logger(LogLevel.DEBUG, _wRequest.WorkerName, sJsonMsg);
+
+                // 서버 호출 (CookieContainer 로 NAMOO_SESSION 유지)
+                HttpResponseMessage response = await NamooServerHttp.Client.PostAsync(NaFrameConfig.DoWorkUrl, content, _cts.Token);
+
+                // 서버 응답이 오면 폴링 중단
+                _pollingCts.Cancel();
+
+                try
                 {
-                    AddProgressMessage(_wRequest.WorkerName + " 호출", true);
-                    StartTicker();
+                    if (pollingTask != null)
+                        await pollingTask; // 폴링 종료까지 대기
+                }
+                catch { }
 
-                    // 폴링을 독립적으로 실행
-                    pollingTask = PollProgressAsync(_wRequest.Header.TrxId, _pollingCts.Token);
+                response.EnsureSuccessStatusCode();
 
-                    string sJsonMsg = NaFunctions.ConvertObjectToJsonString(_wRequest);
-                    var content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json");
+                string sReturn = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(sReturn))
+                    throw new Exception("응답 데이터가 없습니다.");
 
-                    // Request 로그 기록
-                    NaLogger.Logger(LogLevel.DEBUG, _wRequest.WorkerName, sJsonMsg);
+                _wResponse = NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(sReturn);
 
-                    // 서버 호출
-                    HttpResponseMessage response = await client.PostAsync(NaFrameConfig.DoWorkUrl, content, _cts.Token);
+                // Response 로그 기록
+                NaLogger.Logger(LogLevel.DEBUG, _wRequest.WorkerName, NaFunctions.ConvertObjectToJsonString(_wResponse));
 
-                    // 서버 응답이 오면 폴링 중단
-                    _pollingCts.Cancel();
-
-                    try
-                    {
-                        if (pollingTask != null)
-                            await pollingTask; // 폴링 종료까지 대기
-                    }
-                    catch { }
-
-                    response.EnsureSuccessStatusCode();
-
-                    string sReturn = await response.Content.ReadAsStringAsync();
-                    if (string.IsNullOrEmpty(sReturn))
-                        throw new Exception("응답 데이터가 없습니다.");
-
-                    _wResponse = NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(sReturn);
-
-                    // Response 로그 기록
-                    NaLogger.Logger(LogLevel.DEBUG, _wRequest.WorkerName, NaFunctions.ConvertObjectToJsonString(_wResponse));
-
-                    if (_wResponse.IsSuccess)
-                    {
-                        this.DialogResult = DialogResult.OK;
-                        EndWork(true);
-                    }
-                    else
-                    {
-                        AddProgressMessage(_wResponse.Message);
-                        EndWork(false);
-                    }
+                if (_wResponse.IsSuccess)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    EndWork(true);
+                }
+                else
+                {
+                    AddProgressMessage(_wResponse.Message);
+                    EndWork(false);
                 }
             }
             catch (OperationCanceledException)
@@ -186,10 +184,7 @@ namespace Namoo.Client.Forms.Popup
         // 진행 상황 조회 함수 예시
         public static async Task<string> GetProgressFromServer(string trxId)
         {
-            using (var client = new HttpClient())
-            {
-                return await client.GetStringAsync(NaFrameConfig.ProgressUrl + $"?TrxId={trxId}");
-            }
+            return await NamooServerHttp.Client.GetStringAsync(NaFrameConfig.ProgressUrl + $"?TrxId={trxId}");
         }
 
         // CancellationToken을 받아 폴링 중단 가능하게 수정
@@ -241,10 +236,7 @@ namespace Namoo.Client.Forms.Popup
         {
             try
             {
-                using (var client = new HttpClient())
-                {
-                    await client.GetAsync(NaFrameConfig.CancelWorkUrl + $"?TrxId={trxId}");
-                }
+                await NamooServerHttp.Client.GetAsync(NaFrameConfig.CancelWorkUrl + $"?TrxId={trxId}");
             }
             catch (Exception)
             {

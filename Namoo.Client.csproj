@@ -8,14 +8,36 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <NoWarn>$(NoWarn);WFO1000</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\namoo.frame\Namoo.Frame.csproj" />
-    <ProjectReference Include="..\namoo.database\Namoo.Database.csproj" />
-    <ProjectReference Include="..\namoo.worker\Namoo.Worker.csproj" />
-    <!-- Namoo.Controls, Namoo.Controls.DevExp: 해당 프로젝트가 있으면 아래 주석을 해제하고 경로를 맞추세요. -->
-    <!-- <ProjectReference Include="..\..\Namoo.Controls\Namoo.Controls.csproj" /> -->
-    <!-- <ProjectReference Include="..\..\Namoo.Controls.DevExp\Namoo.Controls.DevExp.csproj" /> -->
+    <PackageReference Include="DevExpress.Win.Design" Version="25.1.3" />
   </ItemGroup>
-  <!-- DevExpress 등 외부 컴포넌트: NuGet 또는 로컬 Reference 추가 필요 -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\Namoo.Worker\Namoo.Worker.csproj" />
+    <ProjectReference Include="..\Namoo.Controls\Namoo.Controls.csproj" />
+    <ProjectReference Include="..\Namoo.Controls.DevExp\Namoo.Controls.DevExp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\110912-font-awesome\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\magnifying-glass.ico" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\row_add.png" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\row_remove.png" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Resources\110912-font-awesome\license\license.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
 </Project>

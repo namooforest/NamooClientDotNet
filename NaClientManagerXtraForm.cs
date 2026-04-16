@@ -1,3 +1,5 @@
+using DevExpress.LookAndFeel;
+using DevExpress.Skins;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraTab;
@@ -19,14 +21,20 @@ namespace Namoo.Client
     {
         internal void SetDevExpDefaultStyle()
         {
-            // 1. DevExpress 컨트롤의 기본 폰트 설정
-            WindowsFormsSettings.DefaultFont = new Font("맑은 고딕", 9F, FontStyle.Regular);
+            SkinManager.EnableFormSkins();
+            UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
 
-            // 2. 메뉴, 툴바 등의 폰트도 함께 제어 (필요 시)
+            WindowsFormsSettings.DefaultFont = new Font("맑은 고딕", 9F, FontStyle.Regular);
             WindowsFormsSettings.DefaultMenuFont = new Font("맑은 고딕", 9F);
 
-            // 3. DPI 인식 설정 (고해상도 모니터 대응 - 필수 권장)
-            WindowsFormsSettings.ForceDirectXPaint();
+            try
+            {
+                WindowsFormsSettings.ForceDirectXPaint();
+            }
+            catch
+            {
+                // 일부 런타임/원격 환경에서 선택 기능
+            }
         }
 
         /// <summary>메뉴 생성</summary>

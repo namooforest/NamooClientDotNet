@@ -2,6 +2,7 @@
 using Namoo.Controls.FormControl;
 using Namoo.Controls.StyleSet;
 using Namoo.Frame;
+using Namoo.Frame.DTO;
 using Namoo.Frame.DTO.Entity;
 using Namoo.Frame.NaExceptions;
 using Namoo.Worker.Message;
@@ -145,7 +146,7 @@ namespace Namoo.Client.Forms.Config
 
         private void BtnTest_Click(object sender, EventArgs e)
         {
-            NA_CFG_DATABASE cfg = GetInputData();
+            NaDatabaseConfig cfg = GetInputData();
 
             // 서버에서 클라이언트 설정 정보 가져오기
             Dictionary<string, object> dicParam = new Dictionary<string, object>();
@@ -162,7 +163,7 @@ namespace Namoo.Client.Forms.Config
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            NA_CFG_DATABASE data = GetInputData();
+            NaDatabaseConfig data = GetInputData();
             if (ValueValidation(data) == false)
                 return;
 
@@ -303,9 +304,9 @@ namespace Namoo.Client.Forms.Config
         #endregion ▲▲▲ Event Definition ▲▲▲
 
         #region ▼▼▼ Methods Definition ▼▼▼
-        private NA_CFG_DATABASE GetInputData()
+        private NaDatabaseConfig GetInputData()
         {
-            NA_CFG_DATABASE cfg = new NA_CFG_DATABASE();
+            NaDatabaseConfig cfg = new NaDatabaseConfig();
             string sName = txtName.Text;
             string sDBType = Convert.ToString(cmbDBType.BaseControl.SelectedValue);
             DBTypes dbType = (DBTypes)Enum.Parse(typeof(DBTypes), sDBType);
@@ -379,7 +380,7 @@ namespace Namoo.Client.Forms.Config
             dgOption.DataSource = GetEmptyOptions();
         }
 
-        private bool ValueValidation(NA_CFG_DATABASE data)
+        private bool ValueValidation(NaDatabaseConfig data)
         {
             DBTypes type = data.DbType;
             List<string> chkList = new List<string>();
@@ -436,7 +437,7 @@ namespace Namoo.Client.Forms.Config
                 return;
 
             _sDefaultConnectorName = ret.GetResponseData<string>("DEFAULT_CONNECTOR");
-            List<NA_CFG_DATABASE> connList = ret.GetResponseData<List<NA_CFG_DATABASE>>("CONN_LIST");
+            List<NaDatabaseConfig> connList = ret.GetResponseData<List<NaDatabaseConfig>>("CONN_LIST");
             if (connList == null || connList.Count == 0)
             {
                 dgConnList.DataSource = null;

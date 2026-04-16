@@ -125,7 +125,7 @@ namespace Namoo.Client
                     dicParameter.Add("SQL_ID", sSqlId);
                     dicParameter.Add("PARAMETERS", dicParam);
 
-                    NaWorkerReq req = new NaWorkerReq("Namoo.Server.Common.ExecuteSelectQuery", dicParameter, conn);
+                    NaWorkerReq req = new NaWorkerReq("Namoo.ExecuteSelectQuery", dicParameter, conn);
                     NaWorkerRes res = _helper.CallWorker(req);
                     if (res.IsSuccess)
                     {
