@@ -1,5 +1,5 @@
 ﻿using Namoo.Controls.DevExp.ExtMethods;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
 using System;
 
 namespace Namoo.Client.Forms.Table

@@ -1,5 +1,5 @@
 ﻿using Namoo.Client.Forms.Popup;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

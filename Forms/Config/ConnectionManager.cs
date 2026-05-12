@@ -2,10 +2,9 @@
 using Namoo.Controls.FormControl;
 using Namoo.Controls.StyleSet;
 using Namoo.Frame;
-using Namoo.Frame.DTO;
-using Namoo.Frame.DTO.Entity;
+using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Message;
 using Namoo.Frame.NaExceptions;
-using Namoo.Worker.Message;
 using System;
 using System.Collections.Generic;
 using System.Data;

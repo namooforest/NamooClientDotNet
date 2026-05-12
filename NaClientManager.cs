@@ -1,5 +1,5 @@
 ﻿using DevExpress.XtraBars;
-using Namoo.Frame.DTO.Entity;
+using Namoo.Frame.DataObject.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,7 +17,7 @@ namespace Namoo.Client
 
         #region ▼▼▼ Static wrapper mehtods ▼▼▼
         // Winform Menu Load
-        public static void LoadMenu(MenuStrip menu, List<Menu> data) => _iWinFrom.Value.LoadMenu(menu, data);
+        public static void LoadMenu(MenuStrip menu, List<NA_MENU> data) => _iWinFrom.Value.LoadMenu(menu, data);
         public static void LoadMenu(MenuStrip menu, DataTable data) => _iWinFrom.Value.LoadMenu(menu, data);
 
         // DevExpress Menu Load

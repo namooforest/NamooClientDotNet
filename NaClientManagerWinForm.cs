@@ -1,4 +1,5 @@
 using Namoo.Frame;
+using Namoo.Frame.DataObject.Entity;
 using Namoo.Frame.NaExceptions;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Namoo.Client
         private ContextMenuStrip _context = null;
 
         /// <summary>메뉴 생성</summary>
-        internal void LoadMenu(MenuStrip menu, List<Menu> data)
+        internal void LoadMenu(MenuStrip menu, List<NA_MENU> data)
         {
             DataTable dt = NaFunctions.ConvertObjectToDataTable(data);
             LoadMenuStrip(menu, dt);

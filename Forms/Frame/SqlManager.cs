@@ -2,8 +2,8 @@
 using Namoo.Controls.DevExp.ExtMethods;
 using Namoo.Controls.FormControl;
 using Namoo.Frame;
-using Namoo.Frame.DTO.Entity;
-using Namoo.Worker.Message;
+using Namoo.Frame.DataObject.Entity;
+using Namoo.Frame.Message;
 using System;
 using System.Collections.Generic;
 using System.Data;

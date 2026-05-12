@@ -1,4 +1,4 @@
-﻿using Namoo.Worker.Message;
+﻿using Namoo.Frame.Message;
 using System.Collections.Generic;
 
 namespace Namoo.Client.Forms

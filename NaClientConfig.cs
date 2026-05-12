@@ -1,14 +1,19 @@
 ﻿using Namoo.Client.Forms;
 using Namoo.Frame;
-using Namoo.Frame.DTO;
+using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Message;
 using Namoo.Frame.NaExceptions;
-using Namoo.Worker.Message;
 using System.Collections.Generic;
 
 namespace Namoo.Client
 {
     public static class NaClientConfig
     {
+        public static string DoWorkEndpoint { get; set; } = "/doWork";
+        public static string ProgressEndpoint { get; set; } = "/progress";
+        public static string CancelWorkEndpoint { get; set; } = "/cancelWork";
+        public static string LoginEndpoint { get; set; } = "/user/apiKeyLogin";
+
         private static NaConnector _defaultConnector = null;
         private static NaConnector _frameWorkConnector = null;
         private static List<NaConnector> _liConnector = null;

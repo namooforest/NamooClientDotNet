@@ -1,6 +1,6 @@
 ﻿using Namoo.Controls.FormControl;
-using Namoo.Frame.DTO;
-using Namoo.Worker.Message;
+using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Message;
 using System;
 using System.Collections.Generic;
 

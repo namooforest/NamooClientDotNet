@@ -1,7 +1,7 @@
 using Namoo.Client.Forms;
 using Namoo.Controls.FormControl;
-using Namoo.Frame.DTO;
-using Namoo.Worker.Message;
+using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Message;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -137,9 +137,9 @@ namespace Namoo.Client
                         return null;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw ex;
+                    throw;
                 }
             }
         }

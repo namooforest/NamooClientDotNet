@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Namoo.Worker\Namoo.Worker.csproj" />
     <ProjectReference Include="..\Namoo.Controls\Namoo.Controls.csproj" />
     <ProjectReference Include="..\Namoo.Controls.DevExp\Namoo.Controls.DevExp.csproj" />
   </ItemGroup>

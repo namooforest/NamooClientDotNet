@@ -5,7 +5,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraTab;
 using DevExpress.XtraTab.ViewInfo;
 using Namoo.Frame;
-using Namoo.Frame.DTO.Entity;
+using Namoo.Frame.DataObject.Entity;
 using Namoo.Frame.NaExceptions;
 using System;
 using System.Collections.Generic;

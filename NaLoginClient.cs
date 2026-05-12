@@ -1,5 +1,5 @@
 using Namoo.Frame;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -22,7 +22,7 @@ namespace Namoo.Client
             var req = new NaWorkerReq("Namoo.Login", dic);
             string json = NaFunctions.ConvertObjectToJsonString(req);
             using var content = new StringContent(json, Encoding.UTF8, "application/json");
-            using HttpResponseMessage response = await NamooServerHttp.Client.PostAsync(NaFrameConfig.DoWorkUrl, content, cancellationToken).ConfigureAwait(true);
+            using HttpResponseMessage response = await NamooServerHttp.Client.PostAsync(NaClientConfig.DoWorkEndpoint, content, cancellationToken).ConfigureAwait(true);
             response.EnsureSuccessStatusCode();
             string body = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
             return NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(body);

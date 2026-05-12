@@ -1,9 +1,9 @@
 ﻿using DevExpress.XtraEditors;
 using Namoo.Controls.DevExp.ExtMethods;
 using Namoo.Controls.FormControl;
-using Namoo.Database.SQL;
 using Namoo.Frame;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
+using Namoo.Frame.Sql;
 using System;
 using System.Collections.Generic;
 using System.Data;

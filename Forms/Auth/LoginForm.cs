@@ -1,5 +1,5 @@
 using DevExpress.XtraEditors;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
 using System;
 using System.Windows.Forms;
 

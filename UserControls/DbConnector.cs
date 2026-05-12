@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using Namoo.Frame;
-using Namoo.Frame.DTO;
+using Namoo.Frame.DataObject.DTO;
 
 namespace Namoo.Client.UserControls
 {

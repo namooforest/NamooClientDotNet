@@ -1,8 +1,6 @@
-﻿using Namoo.Client;
-using Namoo.Frame;
-using Namoo.Frame.DTO.Message;
+﻿using Namoo.Frame;
 using Namoo.Frame.Logger;
-using Namoo.Worker.Message;
+using Namoo.Frame.Message;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -62,7 +60,7 @@ namespace Namoo.Client.Forms.Popup
                 NaLogger.Logger(LogLevel.DEBUG, _wRequest.WorkerName, sJsonMsg);
 
                 // 서버 호출 (CookieContainer 로 NAMOO_SESSION 유지)
-                HttpResponseMessage response = await NamooServerHttp.Client.PostAsync(NaFrameConfig.DoWorkUrl, content, _cts.Token);
+                HttpResponseMessage response = await NamooServerHttp.Client.PostAsync(NaClientConfig.DoWorkEndpoint, content, _cts.Token);
 
                 // 서버 응답이 오면 폴링 중단
                 _pollingCts.Cancel();
@@ -184,7 +182,7 @@ namespace Namoo.Client.Forms.Popup
         // 진행 상황 조회 함수 예시
         public static async Task<string> GetProgressFromServer(string trxId)
         {
-            return await NamooServerHttp.Client.GetStringAsync(NaFrameConfig.ProgressUrl + $"?TrxId={trxId}");
+            return await NamooServerHttp.Client.GetStringAsync(NaClientConfig.ProgressEndpoint + $"?TrxId={trxId}");
         }
 
         // CancellationToken을 받아 폴링 중단 가능하게 수정
@@ -236,7 +234,7 @@ namespace Namoo.Client.Forms.Popup
         {
             try
             {
-                await NamooServerHttp.Client.GetAsync(NaFrameConfig.CancelWorkUrl + $"?TrxId={trxId}");
+                await NamooServerHttp.Client.GetAsync(NaClientConfig.CancelWorkEndpoint + $"?TrxId={trxId}");
             }
             catch (Exception)
             {
