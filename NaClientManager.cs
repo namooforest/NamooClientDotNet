@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraBars;
+using Namoo.Client.FormBase;
 using Namoo.Frame.DataObject.Entity;
 using System;
 using System.Collections.Generic;

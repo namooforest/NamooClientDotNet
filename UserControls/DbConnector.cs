@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraEditors;
+using Namoo.Client.Config;
 using Namoo.Frame;
 using Namoo.Frame.DataObject.DTO;
 

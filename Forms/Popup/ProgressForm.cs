@@ -1,4 +1,5 @@
-﻿using Namoo.Frame;
+﻿using Namoo.Client.Config;
+using Namoo.Frame;
 using Namoo.Frame.Logger;
 using Namoo.Frame.Message;
 using System;

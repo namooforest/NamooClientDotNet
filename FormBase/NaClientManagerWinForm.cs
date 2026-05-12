@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Namoo.Client
+namespace Namoo.Client.FormBase
 {
     internal class NaClientManagerWinForm
     {

@@ -1,3 +1,4 @@
+using Namoo.Client.Config;
 using Namoo.Frame;
 using Namoo.Frame.Message;
 using System.Collections.Generic;
