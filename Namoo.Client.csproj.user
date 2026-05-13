@@ -1,42 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
-  <ItemGroup>
-    <Compile Update="Forms\Auth\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Config\ConnectionManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Config\LogManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Frame\ControlPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Frame\SqlManager.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\NaBaseWinForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\NaBaseXtraForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Popup\ProgressForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Popup\SqlEditorView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Popup\SqlResultView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\Table\TableCreate.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="UserControls\DbConnector.cs">
-      <SubType>Component</SubType>
-    </Compile>
-  </ItemGroup>
+  <ItemGroup />
 </Project>

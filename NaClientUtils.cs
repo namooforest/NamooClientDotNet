@@ -1,4 +1,4 @@
-using Namoo.Client.Forms;
+using Namoo.Client.Worker;
 using Namoo.Controls.FormControl;
 using Namoo.Frame.DataObject.DTO;
 using Namoo.Frame.Message;
@@ -14,8 +14,6 @@ namespace Namoo.Client
 {
     public static class NaClientUtils
     {
-        static NaBaseFormHelper _helper = new NaBaseFormHelper();
-
         #region ■■ Windows(WinForms) 전용 유틸 (Frame에서 이전) ■■
 
         /// <summary>기본 폰트 (맑은 고딕 10pt)</summary>
@@ -126,7 +124,7 @@ namespace Namoo.Client
                     dicParameter.Add("PARAMETERS", dicParam);
 
                     NaWorkerReq req = new NaWorkerReq("Namoo.ExecuteSelectQuery", dicParameter, conn);
-                    NaWorkerRes res = _helper.CallWorker(req);
+                    NaWorkerRes res = NaCall.Worker(req);
                     if (res.IsSuccess)
                     {
                         return res.GetResponseData<DataTable>("RESULT");

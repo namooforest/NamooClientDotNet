@@ -1,33 +1,47 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DevExpress.CodeParser;
+using Microsoft.Extensions.Configuration;
 using Namoo.Client.Config.DataObject;
-using Namoo.Client.Forms;
+using Namoo.Client.Worker;
 using Namoo.Frame;
 using Namoo.Frame.DataObject.DTO;
 using Namoo.Frame.Message;
 using Namoo.Frame.NaExceptions;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace Namoo.Client.Config
 {
     public static class NaClientConfig
     {
-        public static NaEndPoints EndPoints { get; set; } = new NaEndPoints();
+        public static NaServerItem Server { get; set; }
+        public static NaSession SessionInfo { get; set; }
 
         private static NaConnector _defaultConnector = null;
         private static NaConnector _frameWorkConnector = null;
         private static List<NaConnector> _liConnector = null;
         private static string UserId = null;
+        private static string _sAppSection = "App";
+        private static string _sServerListSection = "ServerList";
 
-        #region ▼▼▼ appsettings.json Start ▼▼▼
+        #region ▼▼▼ IConfiguration ▼▼▼
         static IConfigurationRoot _root;
+        
         /// <exception cref="InvalidOperationException"><see cref="Initialize"/> 호출 전에 접근한 경우.</exception>
-        public static IConfiguration Configuration =>
-            _root ?? throw new InvalidOperationException("NaClientConfig.Initialize()를 Program.Main에서 먼저 호출하세요.");
+        public static IConfiguration Configuration => _root ?? throw new InvalidOperationException("NaClientConfig.Initialize()를 Program.Main에서 먼저 호출하세요.");
+
+        /// <summary><c>Configuration.Bind</c> 또는 키 인덱싱 전에 구간 노드를 반환합니다.</summary>
+        public static IConfigurationSection GetSection(string key) => Configuration.GetSection(key);
+
+        /// <summary><paramref name="sectionName"/> 구간을 <typeparamref name="T"/> 로 바인딩합니다.</summary>
+        public static T GetSection<T>(string sectionName) where T : class, new() => Configuration.GetSection(sectionName).Get<T>() ?? new T();
+        #endregion ▲▲▲ IConfiguration ▲▲▲
+
+        #region ▼▼▼ appsettings.json ▼▼▼
+
         /// <summary>네임스페이스 접근까지 포함한 현재 설정의 <c>App</c> 구간 바인딩 결과 (<see cref="RefreshBoundSections"/> 시 갱신).</summary>
         public static NaAppSettings App { get; private set; } = new();
 
@@ -39,9 +53,7 @@ namespace Namoo.Client.Config
         /// </summary>
         public static string GetEffectiveEnvironment()
         {
-            return Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
-                ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
-                ?? "Production";
+            return Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
         }
 
         /// <summary><paramref name="basePath"/> 기준으로 <c>appsettings.json</c> 및 <c>appsettings.{환경}.json</c> 만 로드합니다.</summary>
@@ -56,16 +68,15 @@ namespace Namoo.Client.Config
                 .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            ReloadConfigurationState();
+            RefreshBoundSections();
         }
 
         public static void GetInitDataFromServer() {
             // 향후 로그인이나 다른 곳에서 가져오도록 수정해야 할 듯?
             UserId = NaFrameConfig.UserId;
             // 서버에서 클라이언트 설정 정보 가져오기
-            NaBaseFormHelper helper = new NaBaseFormHelper();
             NaWorkerReq req = new NaWorkerReq("Namoo.GetClientConfig");
-            NaWorkerRes res = helper.CallWorker(req);
+            NaWorkerRes res = NaCall.Worker(req);
             if (res.IsSuccess == false)
                 throw new NaException(res.Message, res.Exception);
 
@@ -80,45 +91,29 @@ namespace Namoo.Client.Config
         public static void Reload()
         {
             _root?.Reload();
-            ReloadConfigurationState();
-        }
-
-        static void ReloadConfigurationState()
-        {
             RefreshBoundSections();
         }
 
         /// <summary><c>App</c> 등 메모리에 유지하는 바인딩 객체만 <see cref="Configuration"/> 기준으로 다시 채웁니다.</summary>
         public static void RefreshBoundSections()
         {
-            App = Configuration.GetSection("App").Get<NaAppSettings>() ?? new NaAppSettings();
+            App = Configuration.GetSection(_sAppSection).Get<NaAppSettings>() ?? new NaAppSettings();
+            Server = GetCurrentServer();
         }
 
         /// <summary><c>ServerList</c> 배열 바인딩.</summary>
-        public static List<NaServerItem> GetServerList() =>
-            Configuration.GetSection("ServerList").Get<List<NaServerItem>>() ?? [];
-
-        public static string DoWorkEndpoint => GetCurrentServer()?.Endpoints.DoWork;
-
-        public static string ProgressEndpoint => GetCurrentServer()?.Endpoints.Progress;
-
-        public static string CancelWorkEndpoint => GetCurrentServer()?.Endpoints.CancelWork;
+        public static List<NaServerItem> GetServerList() => Configuration.GetSection(_sServerListSection).Get<List<NaServerItem>>() ?? [];
 
         public static NaServerItem GetCurrentServer()
         {
-            string sServerName = App.CurrentServerName;
+            string sServerName = App.CurrentServerName?.Trim();
             if (string.IsNullOrEmpty(sServerName))
                 return null;
 
             return GetServerList().FirstOrDefault(s => s.Name == sServerName);
         }
 
-        /// <summary><c>Configuration.Bind</c> 또는 키 인덱싱 전에 구간 노드를 반환합니다.</summary>
-        public static IConfigurationSection GetSection(string key) => Configuration.GetSection(key);
 
-        /// <summary><paramref name="sectionName"/> 구간을 <typeparamref name="T"/> 로 바인딩합니다.</summary>
-        public static T GetSection<T>(string sectionName) where T : class, new() =>
-            Configuration.GetSection(sectionName).Get<T>() ?? new T();
 
         /// <summary>현재 환경에 대응하는 <c>appsettings.{env}.json</c> 파일의 전체 경로입니다.</summary>
         public static string GetOverlaySettingsFilePath()
@@ -139,34 +134,57 @@ namespace Namoo.Client.Config
 
         private static JsonSerializerOptions WriteOptions => new()
         {
-            WriteIndented = true
+            WriteIndented = true,
+            // 기본값은 한글 등을 \\uXXXX 로 이스케이프함 — 사람이 읽는 appsettings 에는 문자 그대로 쓴다.
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
-        public static NaConfigRoot LoadOverlayDocument()
+        /// <summary><see cref="Save"/>·목록 복제용(들여쓰기 없음).</summary>
+        static readonly JsonSerializerOptions SerializerCopyOptions = new()
         {
-            var path = GetOverlaySettingsFilePath();
-            if (!File.Exists(path))
-                return new NaConfigRoot();
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            WriteIndented = false
+        };
 
-            var json = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<NaConfigRoot>(json, ReadOptions) ?? new NaConfigRoot();
+        static bool ServerListContainsIdentity(IReadOnlyList<NaServerItem> list, NaServerItem candidate)
+        {
+            foreach (var row in list)
+            {
+                if (ServerIdentityEquals(row, candidate))
+                    return true;
+            }
+            return false;
+        }
+
+        static bool ServerIdentityEquals(NaServerItem a, NaServerItem b)
+        {
+            if (a == null || b == null)
+                return false;
+            bool aHasName = !string.IsNullOrWhiteSpace(a.Name);
+            bool bHasName = !string.IsNullOrWhiteSpace(b.Name);
+            if (aHasName && bHasName)
+                return string.Equals(a.Name.Trim(), b.Name.Trim(), StringComparison.OrdinalIgnoreCase);
+            return string.Equals(a.Url?.Trim(), b.Url?.Trim(), StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
-        /// 오버레이 JSON 파일(<c>appsettings.{현재환경}.json</c>)에 원자적으로 저장 후 <see cref="Reload"/> 합니다.
+        /// 캐시된 Config를 파일로 저장 후 Reload 합니다.
         /// </summary>
-        public static void SaveOverlayDocument(NaConfigRoot root)
+        public static void Save()
         {
-            if (root == null)
-                throw new ArgumentNullException(nameof(root));
-
             var path = GetOverlaySettingsFilePath();
             var dir = Path.GetDirectoryName(path);
             if (!string.IsNullOrEmpty(dir))
                 Directory.CreateDirectory(dir);
 
+            var snapshot = new NaConfigRoot
+            {
+                App = App,
+                ServerList = GetServerList(),
+            };
+
             var tmp = path + ".tmp";
-            var json = JsonSerializer.Serialize(root, WriteOptions);
+            var json = JsonSerializer.Serialize(snapshot, WriteOptions);
             File.WriteAllText(tmp, json);
 
             if (File.Exists(path))
@@ -176,10 +194,9 @@ namespace Namoo.Client.Config
 
             Reload();
         }
-
-        #endregion ▲▲▲ appsettings.json End ▲▲▲
+        #endregion ▲▲▲ appsettings.json ▲▲▲
         
-        #region ▼▼▼ Connector Start ▼▼▼
+        #region ▼▼▼ Connector ▼▼▼
         public static List<NaConnector> GetConnectorList()
         {
             if (_liConnector == null)
@@ -207,6 +224,6 @@ namespace Namoo.Client.Config
                 throw new NaException("클라이언트 설정이 초기화되지 않았습니다.");
             return _frameWorkConnector;
         }
-        #endregion ▲▲▲ Connector End ▲▲▲
+        #endregion ▲▲▲ Connector ▲▲▲
     }
 }
