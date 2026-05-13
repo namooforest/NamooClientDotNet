@@ -39,7 +39,7 @@ public static class NaCall
 
         var req = new NaWorkerReq("Namoo.Login", dic);
 
-        return HelloServer(GetDoWorkUri(), req, cancellationToken).GetAwaiter().GetResult();
+        return HelloServer(true, GetDoWorkUri(), req, cancellationToken).GetAwaiter().GetResult();
     }
 
     public static NaWorkerRes LoginApiKey(string sApiKey, CancellationToken cancellationToken = default)
@@ -76,19 +76,40 @@ public static class NaCall
     }
 
     /// <summary>
-    /// 일반 워커 이외의 호출이 필요한 경우
+    /// 일반 워커 이외의 호출이 필요한 경우(GET)
     /// </summary>
     /// <returns></returns>
-    public static NaWorkerRes Any(Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
+    public static NaWorkerRes AnyGet(Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
     {
-        return HelloServer(uri, req, cancellationToken).GetAwaiter().GetResult();
+        return HelloServer(false, uri, req, cancellationToken).GetAwaiter().GetResult();
     }
 
-    private static async Task<NaWorkerRes> HelloServer(Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// 일반 워커 이외의 호출이 필요한 경우(POST)
+    /// </summary>
+    /// <returns></returns>
+    public static NaWorkerRes AnyPost(Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
     {
-        string json = NaFunctions.ConvertObjectToJsonString(req);
-        using var content = new StringContent(json, Encoding.UTF8, "application/json");
-        using HttpResponseMessage response = await Client.PostAsync(uri, content, cancellationToken).ConfigureAwait(true);
+        return HelloServer(true,uri, req, cancellationToken).GetAwaiter().GetResult();
+    }
+
+    private static async Task<NaWorkerRes> HelloServer(bool isPost, Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
+    {
+        using var request = isPost
+            ? new HttpRequestMessage(HttpMethod.Post, uri)
+            {
+                Content = new StringContent(
+                    NaFunctions.ConvertObjectToJsonString(req),
+                    Encoding.UTF8,
+                    "application/json"),
+            }
+            : new HttpRequestMessage(HttpMethod.Get, uri);
+
+        AppendOptionalAuthHeaders(request);
+
+        using HttpResponseMessage response =
+            await Client.SendAsync(request, cancellationToken).ConfigureAwait(true);
+
         response.EnsureSuccessStatusCode();
         string body = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
         return NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(body);
@@ -130,9 +151,14 @@ public static class NaCall
 
         try
         {
-            using var content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json");
+            using var request = new HttpRequestMessage(HttpMethod.Post, GetDoWorkUri())
+            {
+                Content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json"),
+            };
+            AppendOptionalAuthHeaders(request);
+
             using HttpResponseMessage response =
-                await Client.PostAsync(GetDoWorkUri(), content, cancellationToken).ConfigureAwait(false);
+                await Client.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
 
@@ -179,5 +205,19 @@ public static class NaCall
     {
         string sUrl = NaFunctions.CombineUrl(NaClientConfig.Server.Url, NaClientConfig.Server.Endpoints.DoWork);
         return new Uri(sUrl);
+    }
+
+    private static void AppendOptionalAuthHeaders(HttpRequestMessage request)
+    {
+        if (request == null)
+            return;
+
+        string apiKey = NaClientConfig.Server?.ApiKey;
+        if (!string.IsNullOrWhiteSpace(apiKey))
+            request.Headers.TryAddWithoutValidation(NaConst.HttpHeader.HeaderApiKey, apiKey);
+
+        string sessionId = NaClientConfig.SessionInfo?.SessionId;
+        if (!string.IsNullOrWhiteSpace(sessionId))
+            request.Headers.TryAddWithoutValidation(NaConst.HttpHeader.HeaderSessionId, sessionId);
     }
 }
