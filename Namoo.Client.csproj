@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Namoo.Controls\Namoo.Controls.csproj" />
-    <ProjectReference Include="..\Namoo.Controls.DevExp\Namoo.Controls.DevExp.csproj" />
+    <ProjectReference Include="..\namoo.controls\Namoo.Controls.csproj" />
+    <ProjectReference Include="..\namoo.controls.devexp\Namoo.Controls.DevExp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
