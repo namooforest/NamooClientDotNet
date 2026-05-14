@@ -73,6 +73,26 @@ namespace Namoo.Client
             }
         }
 
+        /// <summary>
+        /// 현재 WinForms 애플리케이션의 메인 폼을 반환합니다. 메시지 루프가 없거나 열린 폼이 없으면 null입니다.
+        /// 우선 순위: 이름(Name)이 <c>Main</c>인 폼 → <see cref="Application.OpenForms"/>의 첫 번째 항목.
+        /// </summary>
+        public static Form GetMainForm()
+        {
+            if (!Application.MessageLoop)
+                return null;
+
+            Form byName = Application.OpenForms["Main"];
+            if (byName != null && !byName.IsDisposed)
+                return byName;
+
+            if (Application.OpenForms.Count == 0)
+                return null;
+
+            Form first = Application.OpenForms[0];
+            return (first != null && !first.IsDisposed) ? first : null;
+        }
+
         #region ■■ Konami Sequence ■■
         private static List<Keys> _commandKeys = null;
         private static int _commandPosition = -1;
