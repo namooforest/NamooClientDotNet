@@ -40,6 +40,26 @@ namespace Namoo.Client.Config
         public static T GetSection<T>(string sectionName) where T : class, new() => Configuration.GetSection(sectionName).Get<T>() ?? new T();
         #endregion ▲▲▲ IConfiguration ▲▲▲
 
+        #region ▼▼▼ Uri ▼▼▼
+        public static Uri GetDoWorkUri()
+        {
+            string sUrl = NaFunctions.CombineUrl(NaClientConfig.Server.Url, NaClientConfig.Server.Endpoints.DoWork);
+            return new Uri(sUrl);
+        }
+
+        public static Uri GetProgressUri()
+        {
+            string sUrl = NaFunctions.CombineUrl(NaClientConfig.Server.Url, NaClientConfig.Server.Endpoints.Progress);
+            return new Uri(sUrl);
+        }
+        
+        public static Uri GetCancelWorkUri()
+        {
+            string sUrl = NaFunctions.CombineUrl(NaClientConfig.Server.Url, NaClientConfig.Server.Endpoints.CancelWork);
+            return new Uri(sUrl);
+        }
+        #endregion ▲▲▲ Uri ▲▲▲
+
         #region ▼▼▼ appsettings.json ▼▼▼
 
         /// <summary>네임스페이스 접근까지 포함한 현재 설정의 <c>App</c> 구간 바인딩 결과 (<see cref="RefreshBoundSections"/> 시 갱신).</summary>

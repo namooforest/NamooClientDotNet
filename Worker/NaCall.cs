@@ -39,7 +39,7 @@ public static class NaCall
 
         var req = new NaWorkerReq("Namoo.Login", dic);
 
-        return HelloServer(true, GetDoWorkUri(), req, cancellationToken).GetAwaiter().GetResult();
+        return HelloServer(true, NaClientConfig.GetDoWorkUri(), req, cancellationToken).GetAwaiter().GetResult();
     }
 
     public static NaWorkerRes LoginApiKey(string sApiKey, CancellationToken cancellationToken = default)
@@ -90,7 +90,7 @@ public static class NaCall
     /// <returns></returns>
     public static NaWorkerRes AnyPost(Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
     {
-        return HelloServer(true,uri, req, cancellationToken).GetAwaiter().GetResult();
+        return HelloServer(true, uri, req, cancellationToken).GetAwaiter().GetResult();
     }
 
     private static async Task<NaWorkerRes> HelloServer(bool isPost, Uri uri, NaWorkerReq req, CancellationToken cancellationToken = default)
@@ -151,24 +151,39 @@ public static class NaCall
 
         try
         {
-            using var request = new HttpRequestMessage(HttpMethod.Post, GetDoWorkUri())
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "1");
+            
+            using var request = new HttpRequestMessage(HttpMethod.Post, NaClientConfig.GetDoWorkUri())
             {
                 Content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json"),
             };
             AppendOptionalAuthHeaders(request);
+            
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "2");
 
             using HttpResponseMessage response =
                 await Client.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "3");
+
             response.EnsureSuccessStatusCode();
+
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "4");
 
             string sReturn = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (string.IsNullOrEmpty(sReturn))
                 throw new InvalidOperationException("응답 데이터가 없습니다.");
 
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "5");
+
             var wResponse = NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(sReturn);
 
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "6");
+
             NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, NaFunctions.ConvertObjectToJsonString(wResponse));
+
+            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "7");
+
             return wResponse ?? Fail(req, new InvalidOperationException("응답 파싱 결과가 비어 있습니다."));
         }
         catch (OperationCanceledException)
@@ -199,12 +214,6 @@ public static class NaCall
         }
 
         return res;
-    }
-
-    private static Uri GetDoWorkUri()
-    {
-        string sUrl = NaFunctions.CombineUrl(NaClientConfig.Server.Url, NaClientConfig.Server.Endpoints.DoWork);
-        return new Uri(sUrl);
     }
 
     private static void AppendOptionalAuthHeaders(HttpRequestMessage request)
