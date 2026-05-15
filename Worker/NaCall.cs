@@ -150,39 +150,25 @@ public static class NaCall
         NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, sJsonMsg);
 
         try
-        {
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "1");
-            
+        {            
             using var request = new HttpRequestMessage(HttpMethod.Post, NaClientConfig.GetDoWorkUri())
             {
                 Content = new StringContent(sJsonMsg, Encoding.UTF8, "application/json"),
             };
             AppendOptionalAuthHeaders(request);
-            
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "2");
 
             using HttpResponseMessage response =
                 await Client.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "3");
-
             response.EnsureSuccessStatusCode();
-
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "4");
 
             string sReturn = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (string.IsNullOrEmpty(sReturn))
                 throw new InvalidOperationException("응답 데이터가 없습니다.");
 
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "5");
-
             var wResponse = NaFunctions.ConvertJsonStringToObject<NaWorkerRes>(sReturn);
 
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "6");
-
             NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, NaFunctions.ConvertObjectToJsonString(wResponse));
-
-            NaLogger.Logger(LogLevel.DEBUG, req.WorkerName, "7");
 
             return wResponse ?? Fail(req, new InvalidOperationException("응답 파싱 결과가 비어 있습니다."));
         }
