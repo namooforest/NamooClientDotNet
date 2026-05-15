@@ -71,6 +71,10 @@ namespace Namoo.Client.Config
             RefreshBoundSections();
         }
 
+        /// <summary>
+        /// 서버로부터 초기 설정 데이터를 가져옵니다.
+        /// </summary>
+        /// <exception cref="NaException"></exception>
         public static void GetInitDataFromServer() {
             // 향후 로그인이나 다른 곳에서 가져오도록 수정해야 할 듯?
             UserId = NaFrameConfig.UserId;
