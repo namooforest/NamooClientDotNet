@@ -4,6 +4,7 @@ using Namoo.Client.Config.DataObject;
 using Namoo.Client.Worker;
 using Namoo.Frame;
 using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Function;
 using Namoo.Frame.Message;
 using Namoo.Frame.NaExceptions;
 using System;

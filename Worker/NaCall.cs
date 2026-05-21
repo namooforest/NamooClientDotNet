@@ -1,6 +1,7 @@
 ﻿using Namoo.Client.Config;
 using Namoo.Frame;
 using Namoo.Frame.DataObject.DTO;
+using Namoo.Frame.Function;
 using Namoo.Frame.Logger;
 using Namoo.Frame.Message;
 using Namoo.Frame.NaExceptions;
@@ -98,10 +99,7 @@ public static class NaCall
         using var request = isPost
             ? new HttpRequestMessage(HttpMethod.Post, uri)
             {
-                Content = new StringContent(
-                    NaFunctions.ConvertObjectToJsonString(req),
-                    Encoding.UTF8,
-                    "application/json"),
+                Content = new StringContent(NaFunctions.ConvertObjectToJsonString(req), Encoding.UTF8, "application/json"),
             }
             : new HttpRequestMessage(HttpMethod.Get, uri);
 
